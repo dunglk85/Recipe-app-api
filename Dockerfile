@@ -12,8 +12,8 @@ EXPOSE 8000
 
 ARG DEV=false
 RUN python -m venv /py && \
-# Install build-essential package which includes the C compiler
-    apt-get update && apt-get install -y build-essential &&\
+    apt-get update &&\
+    apt-get install -y build-essential &&\
     /py/bin/pip install --upgrade pip && \
     /py/bin/pip install -r /tmp/requirements.txt && \
     if [ $DEV = "true" ]; \
