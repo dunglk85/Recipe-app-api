@@ -12,8 +12,8 @@ EXPOSE 8000
 
 ARG DEV=false
 RUN python -m venv /py && \
-    apt-get update &&\
-    apt-get install -y build-essential &&\
+    apk update && \
+    apk add --no-cache build-base && \
     /py/bin/pip install --upgrade pip && \
     /py/bin/pip install -r /tmp/requirements.txt && \
     if [ $DEV = "true" ]; \
