@@ -10,7 +10,7 @@ COPY ./app /app
 WORKDIR /app
 EXPOSE 8000
 
-ARG DEV=false
+ENV DEV=false
 RUN python -m venv /py && \
     apk update && \
     apk add --no-cache build-base linux-headers && \
