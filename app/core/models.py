@@ -1,8 +1,8 @@
 """
 Database models.
 """
-from django.db import models # type: ignore
-from django.contrib.auth.models import ( # type: ignore
+from django.db import models  # type: ignore
+from django.contrib.auth.models import (  # type: ignore
     AbstractBaseUser,
     BaseUserManager,
     PermissionsMixin,
@@ -16,12 +16,13 @@ class UserManager(BaseUserManager):
         """Create, save and return a new user."""
         if not email:
             raise ValueError("Users must have an email address")
-        user = self.model(email=self.normalize_email(email=email), **extra_fields)
+        user = self.model(email=self.normalize_email(email=email), 
+                          **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
 
         return user
-    
+
     def create_superuser(self, email, password):
         """Create and return a new superuser."""
         user = self.create_user(email, password)
@@ -34,7 +35,8 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     """User in the system."""
-    email = models.EmailField(max_length=255, unique=True, blank=False, null=False)
+    email = models.EmailField(max_length=255, unique=True, 
+                              blank=False, null=False)
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
