@@ -18,5 +18,4 @@ app_name = 'recipe'
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('recipe-list', include(router.urls)),
 ]
