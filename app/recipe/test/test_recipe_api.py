@@ -20,9 +20,6 @@ from recipe.serializers import (
     RecipeDetailSerializer,
 )
 
-import tempfile
-import shutil
-
 TEMP_MEDIA_ROOT = tempfile.mkdtemp()
 
 RECIPES_URL = reverse('recipe:recipe-list')
