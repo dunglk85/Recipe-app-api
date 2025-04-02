@@ -5,6 +5,7 @@ from django.test import TestCase    # type: ignore
 from django.contrib.auth import get_user_model  # type: ignore
 from decimal import Decimal
 from core import models
+from unittest.mock import patch
 
 def create_user(email='user@example.com', password='testpass123'):
     """Create a return a new user."""
@@ -84,3 +85,31 @@ class ModelTests(TestCase):
         )
 
         self.assertEqual(str(ingredient), ingredient.name)
+        
+    def test_create_recipe_with_tags(self):
+        """Test creating a recipe with tags is successful."""   
+        user = create_user()
+        recipe = models.Recipe.objects.create(
+            user=user,
+            title='Sample recipe name',
+            time_minutes=5,
+            price=Decimal('5.50'),
+            description='Sample receipe description.',
+        )
+        tag1 = models.Tag.objects.create(user=user, name='Tag1')
+        tag2 = models.Tag.objects.create(user=user, name='Tag2')
+        recipe.tags.add(tag1, tag2)
+
+        self.assertIn(tag1, recipe.tags.all())
+        self.assertIn(tag2, recipe.tags.all())
+        self.assertEqual(recipe.tags.count(), 2)
+        
+    @patch('core.models.uuid.uuid4')
+    def test_recipe_file_name_uuid(self, mock_uuid):
+        """Test generating image path."""
+        uuid = 'test-uuid'
+        mock_uuid.return_value = uuid
+        file_path = models.recipe_image_file_path(None, 'example.jpg')
+
+        self.assertEqual(file_path, f'uploads/recipe/{uuid}.jpg')
+    
