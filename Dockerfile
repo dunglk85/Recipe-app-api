@@ -2,10 +2,11 @@ FROM python:3.9-alpine3.13
 LABEL maintainer="dunglk85"
 
 ENV PYTHONUNBUFFERED=1
-ENV PATH="/py/bin:$PATH"
+ENV PATH="/scripts:/py/bin:$PATH"
 
 COPY ./requirements.txt /tmp/requirements.txt
 COPY ./requirements.dev.txt /tmp/requirements.dev.txt
+COPY ./scripts /scripts
 COPY ./app /app
 
 WORKDIR /app
@@ -27,8 +28,9 @@ RUN python -m venv /py && \
     mkdir -p /vol/web/media && \
     mkdir -p /vol/web/static && \
     chown -R django-user:django-user /vol && \
-    chmod -R 755 /vol
+    chmod -R 755 /vol && \
+    chmod -R +x /scripts
 
 USER django-user
 
-CMD ["sh", "/app/run.sh"]
+CMD ["run.sh"]
