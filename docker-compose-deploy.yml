@@ -6,7 +6,8 @@ services:
       context: .
     restart: always
     volumes:
-      - static-data:/vol/web
+      - static-data:/vol/web/static
+      - media-data:/vol/web/media
     environment:
       - DB_HOST=db
       - DB_NAME=${DB_NAME}
@@ -35,7 +36,8 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - static-data:/vol/web
+      - static-data:/vol/web/static
+      - media-data:/vol/web/media
       - ./proxy/default.conf.tpl:/etc/nginx/templates/default.conf.template
       - ./proxy/uwsgi_params:/etc/nginx/uwsgi_params
     environment:
@@ -48,3 +50,4 @@ services:
 volumes:
   postgres-data:
   static-data:
+  media-data:
