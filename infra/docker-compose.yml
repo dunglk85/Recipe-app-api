@@ -7,7 +7,7 @@ services:
       - ${USERPROFILE}/.aws:/root/.aws
     working_dir: /tf
     environment:
-      - AWS_PROFILE=recipe-app-api
+      - AWS_PROFILE=recipe-app
       - AWS_DEFAULT_REGION=ap-southeast-1
       - TF_WORKSPACE=${TF_WORKSPACE}
       - HOME=/root
