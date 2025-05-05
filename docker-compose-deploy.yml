@@ -34,12 +34,12 @@ services:
     depends_on:
       - app
     ports:
-      - 8000:8000
+      - 80:8000
     volumes:
-      - static-data:/vol/web/static
-      - media-data:/vol/web/media
+      - static-data:/vol/static
+      - media-data:/vol/media
       - ./proxy/default.conf.tpl:/etc/nginx/templates/default.conf.template
-      - ./proxy/uwsgi_params:/etc/nginx/uwsgi_params
+      - ./proxy/gunicorn_headers:/etc/nginx/gunicorn_headers
     environment:
       LISTEN_PORT: 8000
       APP_HOST: app

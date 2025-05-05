@@ -1,0 +1,13 @@
+services:
+  terraform:
+    image: hashicorp/terraform:1.6.2
+    volumes:
+      - ./setup:/tf/setup
+      - ./deploy:/tf/deploy
+      - ${USERPROFILE}/.aws:/root/.aws
+    working_dir: /tf
+    environment:
+      - AWS_PROFILE=recipe-app-api
+      - AWS_DEFAULT_REGION=ap-southeast-1
+      - TF_WORKSPACE=${TF_WORKSPACE}
+      - HOME=/root
