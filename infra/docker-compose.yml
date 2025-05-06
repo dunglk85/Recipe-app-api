@@ -4,10 +4,14 @@ services:
     volumes:
       - ./setup:/tf/setup
       - ./deploy:/tf/deploy
-      - ${USERPROFILE}/.aws:/root/.aws
+      # for windows users, comment the line below and uncomment the line above
+      #- ${USERPROFILE}/.aws:/root/.aws
     working_dir: /tf
     environment:
-      - AWS_PROFILE=recipe-app
+      # for windows users, comment the line below
+      #- AWS_PROFILE=recipe-app
+      - AWS_ACCESS_KEY_ID=${{ vars.AWS_ACCESS_KEY_ID }}
+      - AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - AWS_DEFAULT_REGION=ap-southeast-1
       - TF_WORKSPACE=${TF_WORKSPACE}
-      - HOME=/root
+      #- HOME=/root
