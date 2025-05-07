@@ -5,11 +5,11 @@ services:
       - ./setup:/tf/setup
       - ./deploy:/tf/deploy
       # for windows users, comment the line below and uncomment the line above
-      #- ${USERPROFILE}/.aws:/root/.aws
+      - ${USERPROFILE}/.aws:/root/.aws
     working_dir: /tf
     environment:
       # for windows users, comment the line below
-      #- AWS_PROFILE=recipe-app
+      - AWS_PROFILE=recipe-app
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
@@ -19,4 +19,4 @@ services:
       - TF_VAR_django_secret_key=${TF_VAR_django_secret_key}
       - TF_VAR_ecr_proxy_image=${TF_VAR_ecr_proxy_image}
       - TF_VAR_ecr_app_image=${TF_VAR_ecr_app_image}
-      #- HOME=/root
+      - HOME=/root
