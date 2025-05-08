@@ -7,7 +7,12 @@
 		  "ssmmessages:CreateControlChannel",
 		  "ssmmessages:CreateDataChannel",
 		  "ssmmessages:OpenControlChannel",
-		  "ssmmessages:OpenDataChannel"
+		  "ssmmessages:OpenDataChannel",
+		  "ssm:StartSession",
+		  "ssm:SendCommand",
+		  "ssm:DescribeSessions",
+		  "ssm:GetCommandInvocation",
+		  "ssm:DescribeInstanceInformation"
 		],
 		"Resource": "*"
 	  }
