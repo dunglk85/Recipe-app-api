@@ -297,3 +297,34 @@ resource "aws_iam_user_policy_attachment" "logs" {
   user       = aws_iam_user.cd.name
   policy_arn = aws_iam_policy.logs.arn
 }
+
+data "aws_iam_policy_document" "ecs_exec" {
+  statement {
+    actions = [
+      "ecs:ExecuteCommand",
+      "ssm:StartSession",
+      "ssm:SendCommand",
+      "ssm:DescribeSessions",
+      "ssm:GetCommandInvocation",
+      "ssm:DescribeInstanceInformation",
+      "logs:DescribeLogGroups",
+      "logs:DescribeLogStreams",
+      "logs:GetLogEvents",
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents"
+    ]
+    resources = ["*"]
+  }
+}
+
+resource "aws_iam_policy" "ecs_exec" {
+  name        = "${aws_iam_user.cd.name}-ecs-exec"
+  description = "Allow user to execute commands in ECS tasks."
+  policy      = data.aws_iam_policy_document.ecs_exec.json
+}
+
+resource "aws_iam_user_policy_attachment" "ecs_exec" {
+  user       = aws_iam_user.cd.name
+  policy_arn = aws_iam_policy.ecs_exec.arn
+}
